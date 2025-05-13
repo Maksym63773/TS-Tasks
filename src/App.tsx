@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {FC, useEffect, useState} from 'react';
+import FloatingButton from "./components/FloatingButton/FloatingButton";
+import Modal from "./components/Modal/Modal";
+import TaskForm from "./components/TaskForm/TaskForm";
+import {useSelector} from "react-redux";
+import {RootState} from "./store";
+import TaskList from "./TasksList/TaskList";
+import {TaskState} from "./store/reducers/TaskSlice";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+
+
+
+const App:FC = () => {
+
+    const [modalActive, setModalActive] = useState<boolean>(false);
+    const tasks = useSelector<RootState, TaskState[]>(state => state.root.tasks);
+
+    return (
+        <div>
+          <h1 style={{textAlign:'center', fontSize:'60px'}}>Todo-list</h1>
+          <FloatingButton onClick={() => setModalActive(modalActive=>!modalActive)}>
+              +
+          </FloatingButton>
+          <Modal active={modalActive} setActive={setModalActive}>
+            <TaskForm/>
+
+          </Modal>
+          <TaskList />
+        </div>
+    );
+};
 
 export default App;
