@@ -8,7 +8,7 @@ export interface TaskState {
     priority: number;
     status: taskStatus ;
     createdAt: string;
-    dueDate?: string;
+    dueDate: string;
     completed: boolean;
 }
 
@@ -26,7 +26,8 @@ const TaskSlice = createSlice({
             return state;
         },
         updateTask: (state, action: PayloadAction<TaskState>) => {
-            state[state.findIndex(task => task.id === action.payload.id)-1] = action.payload;
+            state.splice(state.indexOf(action.payload)-1, 1,action.payload);
+            return state;
         }
     }
 })

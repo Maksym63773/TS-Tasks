@@ -6,6 +6,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "./store";
 import TaskList from "./TasksList/TaskList";
 import {TaskState} from "./store/reducers/TaskSlice";
+import {useAppSelector} from "./hooks/redux";
 
 
 
@@ -13,12 +14,21 @@ import {TaskState} from "./store/reducers/TaskSlice";
 const App:FC = () => {
 
     const [modalActive, setModalActive] = useState<boolean>(false);
-    const tasks = useSelector<RootState, TaskState[]>(state => state.root.tasks);
+    const tasks = useAppSelector(state => state.root.tasks);
 
     return (
         <div>
           <h1 style={{textAlign:'center', fontSize:'60px'}}>Todo-list</h1>
-          <FloatingButton onClick={() => setModalActive(modalActive=>!modalActive)}>
+          <div>
+              <h4>Sort By</h4>
+              <select>
+                  <option>By add time</option>
+                  <option>By name</option>
+                  <option>By priority</option>
+                  <option>Own sort</option>
+              </select>
+          </div>
+            <FloatingButton onClick={() => setModalActive(modalActive=>!modalActive)}>
               +
           </FloatingButton>
           <Modal active={modalActive} setActive={setModalActive}>

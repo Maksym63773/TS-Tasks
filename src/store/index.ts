@@ -1,11 +1,13 @@
 import {configureStore} from "@reduxjs/toolkit";
 import { combineReducers } from '@reduxjs/toolkit'
 import TaskReducer from "./reducers/TaskSlice";
+import EditableTaskReducer from "./reducers/EditableTaskSlice";
 const rootReducer = combineReducers({
-    tasks: TaskReducer
+    tasks: TaskReducer,
+    editTask: EditableTaskReducer,
 })
 
-export const store = configureStore({
+export const store =  configureStore({
     reducer: {
         root: rootReducer,
     },
